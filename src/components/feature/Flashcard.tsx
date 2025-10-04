@@ -47,7 +47,7 @@ export default function Flashcard({ wordData, isFlipped: controlledFlipped, onFl
                 <div className="flashcard-front">
                     <h2>{frontContent}</h2>
                     {/* en-jpの時のみ音声ボタン表示 */}
-                    {mode === 'en-jp' && <SpeakerButton />}
+                    {/*{mode === 'en-jp' && <SpeakerButton />}*/}
                     {/* 例文が存在する場合のみ表示 */}
                     {mode==='en-jp' && wordData.example && <p className="example"><em>{wordData.example}</em></p>}
                 </div>
