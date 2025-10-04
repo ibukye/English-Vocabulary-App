@@ -6,7 +6,6 @@ import { db } from '@/lib/firebase';
 import { useState } from 'react';
 import WordForm from '@/components/WordForm';
 import MenuButton from '@/components/ui/MenuButton';
-import Link from 'next/link';
 
 
 export default function AddWordPage() {

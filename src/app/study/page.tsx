@@ -68,7 +68,7 @@ export default function StudyPage() {
 
         const wordRef = doc(db, "words", currentWord.id);   // 更新対象のドキュメントへの参照
 
-        let updatedWordData: Partial<Word> = {};
+        const updatedWordData: Partial<Word> = {};
         if (isCorrect) {
             await updateDoc(wordRef, {lastCorrectDate: new Date(), });
         } else {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react"
-import SpeakerButton from "../ui/SpeakerButton";
+//import SpeakerButton from "../ui/SpeakerButton";
 import './Flashcard.css';
 
 // 1. 学習モードの型を追加

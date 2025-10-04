@@ -1,8 +1,5 @@
 'use client';
 
-
-import Link from "next/link";
-import StudyPage from "./study/page";
 import MenuButton from "@/components/ui/MenuButton";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from 'firebase/firestore';
