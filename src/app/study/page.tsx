@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import MenuButton from "@/components/ui/MenuButton";
 import Flashcard from "@/components/feature/Flashcard";
