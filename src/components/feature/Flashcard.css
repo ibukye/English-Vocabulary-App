@@ -1,7 +1,7 @@
 /* カード全体のコンテナ:遠近感(perspective)を設定 */
 .flashcard-container {
-    width: 300px;
-    height: 200px;
+    width: 450px;
+    height: 300px;
     perspective: 1000px;    /* 3D効果のための奥行 */
     cursor: pointer;
 }
@@ -38,6 +38,11 @@
     box-sizing: border-box;     /* paddingを含めたサイズ計算に*/
 }
 
+/* カードの表面の色を修正 */
+.flashcard-front {
+    background-color: #f0f8ff;
+}
+
 /* カードの裏面は最初から180度回転させて裏返しておく */
 .flashcard-back {
     transform: rotateY(180deg);
@@ -46,14 +51,16 @@
 
 /* カードの中身のスタイル */
 .flashcard-front h2 {
+    color: black;
     font-size: 2.5rem;
     margin: 0;
 }
-.flashcard-back p {
-    font-size: 1.2rem;
+.flashcard-back h2 {
+    color: black;
+    font-size: 2.0rem;
     margin: 5px 0;
 }
 .example {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #333;
 }
