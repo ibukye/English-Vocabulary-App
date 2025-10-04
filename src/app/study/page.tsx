@@ -2,10 +2,9 @@
 
 import MenuButton from "@/components/ui/MenuButton";
 import Flashcard from "@/components/feature/Flashcard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 // URLのパラメータを読み込むためにuseSearchParamsをインポート
 import { useSearchParams } from 'next/navigation';
-
 
 
 // Firebase Firestoreから関数とdbをimport
@@ -25,7 +24,7 @@ type Word = {
     lastCorrectDate: Date | null;
 }
 
-export default function StudyPage() {
+function StudyPageContent() {
     const [words, setWords] = useState<Word[]>([]);     // 単語リスト全体のstate
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -131,3 +130,17 @@ export default function StudyPage() {
         </div>
     );
 };
+
+
+
+
+
+// ページのエントリーポイントとなる新しいコンポーネントを定義
+export default function StudyPage() {
+    return (
+        // 3. SuspenseでStudyPageContentをラップする
+        <Suspense fallback={<div>Loading Page...</div>}>
+            <StudyPageContent />
+        </Suspense>
+    );
+}
