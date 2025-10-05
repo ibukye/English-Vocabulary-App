@@ -60,6 +60,11 @@
     font-size: 2.0rem;
     margin: 5px 0;
 }
+.flashcard-back p {
+    color: black;
+    font-size: 1.05em;
+    margin: 5px 0;
+}
 .example {
     font-size: 1.2rem;
     color: #333;

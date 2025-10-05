@@ -28,36 +28,12 @@ export default function Home() {
       <h1>英単語学習帳</h1>
       
       <MenuButton href="/add-word" label="新しい単語を追加する" />
-      
   
       <p>学習モードを選択してください</p>
 
-      {/* 常に全単語ボタンを表示 */}
       <div className="menu-buttons">
-        <div>
-          <h3>全ての単語</h3>
           <MenuButton href="/study?mode=en-jp" label="英語 → 日本語" />
           <MenuButton href="/study?mode=jp-en" label="日本語 → 英語" />
-        </div>
-
-
-        {/* tagごとの学習ボタンを動的に生成 */}
-        {tags.length > 0 && (
-          <>
-            <h2>tag別に学習</h2>
-            {tags.map(tag => (
-              <div key={tag}>
-                <h3>{tag}</h3>
-                <MenuButton href={`/study?mode=en-jp&tag=${tag}`} label="英語 → 日本語" />
-                <MenuButton href={`/study?mode=jp-en&tag=${tag}`} label="日本語 → 英語" />
-              </div>
-            ))}
-          </>
-        )}
-
-
-
-        
       </div>
     </div>
   );

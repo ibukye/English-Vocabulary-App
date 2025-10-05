@@ -1,7 +1,7 @@
 
 
 import './WordForm.css';
-
+import React, { forwardRef } from 'react';
 
 type WordFormProps = {
     word: string;
@@ -14,11 +14,13 @@ type WordFormProps = {
     buttonText: string;
     tags: string;
     setTags: (value: string) => void;
+    memo: string;
+    setMemo: (value: string) => void;
 };
 
-export default function WordForm({
-    word, meaning, example, setWord, setMeaning, setExample, handleSubmit, buttonText, tags, setTags
-}: WordFormProps) {
+const WordForm = forwardRef<HTMLInputElement, WordFormProps>(({
+    word, meaning, example, setWord, setMeaning, setExample, handleSubmit, buttonText, tags, setTags, memo, setMemo
+}, ref) => {
     return (
         <form 
             onSubmit={handleSubmit}
@@ -29,10 +31,8 @@ export default function WordForm({
             </h2>
             
             <div>
-                <label className='block text-sm font-medium text-gray-600 mb-1'>
-                    単語:
-                </label>
-                <input type="text" value={word} onChange={(e) => setWord(e.target.value)} required className="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all text-black"/>
+                <label className='block text-sm font-medium text-gray-600 mb-1'>単語:</label>
+                <input ref={ref} type="text" value={word} onChange={(e) => setWord(e.target.value)} required className="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all text-black"/>
             </div>
             <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">意味:</label>
@@ -46,7 +46,16 @@ export default function WordForm({
                 <label className="block text-sm font-medium text-gray-600 mb-1">タグ (カンマ区切り):</label>
                 <input type="text" value={tags} onChange={(e) => setTags(e.target.value)} placeholder="例: 中学2年中間, 2025" className="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all text-black"/>
             </div>
+            <div>
+                <label className="block text-sm font-medium text-gray-600 mb-1">メモ:</label>
+                <input type="text" value={memo} onChange={(e) => setMemo(e.target.value)} className="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all text-black"/>
+            </div>
             <button type="submit" className="w-full bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-600 active:scale-[0.98] transition-all ">{buttonText}</button>
         </form>
     );
-}
+});
+
+
+WordForm.displayName = 'WordForm';
+
+export default WordForm;

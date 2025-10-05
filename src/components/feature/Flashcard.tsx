@@ -4,7 +4,7 @@ import { useState } from "react"
 //import SpeakerButton from "../ui/SpeakerButton";
 import './Flashcard.css';
 
-// 1. 学習モードの型を追加
+// 学習モードの型
 type StudyMode = 'en-jp' | 'jp-en';
 
 // Flashcardが受け取るデータの型
@@ -12,6 +12,7 @@ type WordData = {
     word: string;
     meaning: string;
     example?: string;   // 任意  
+    memo?: string;
 }
 
 // ComponentのPropsの型
@@ -59,7 +60,7 @@ export default function Flashcard({ wordData, isFlipped: controlledFlipped, onFl
                     <h2>{backContent}</h2>
                     {/* 例文が存在する場合のみ表示 */}
                     {mode==='jp-en' && wordData.example && <p className="example"><em>{wordData.example}</em></p>}
-                    
+                    {wordData.memo && <p className="memo"><em>{wordData.memo}</em></p>}
 
                 </div>
             

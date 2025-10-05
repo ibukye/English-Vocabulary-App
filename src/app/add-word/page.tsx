@@ -1,9 +1,9 @@
 'use client';
 
 // Firestore関連の関数とdb instanceをimport
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import WordForm from '@/components/WordForm';
 import MenuButton from '@/components/ui/MenuButton';
 
@@ -14,7 +14,14 @@ export default function AddWordPage() {
     const [meaning, setMeaning] = useState('');
     const [example, setExample] = useState('');
     const [tags, setTags] = useState('');
+    const [memo, setMemo] = useState('');
 
+    // inputのためのRefを作成
+    const wordInputRef = useRef<HTMLInputElement>(null);
+    // ページが読み込まれたときにfocusする
+    useEffect(() => {
+        wordInputRef.current?.focus();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();     // formのdefault送信動作を防ぐ
@@ -29,16 +36,17 @@ export default function AddWordPage() {
 
         try {
             // word collectionに新しいドキュメントを追加
-            const docRef = await addDoc(collection(db, 'words'), {
+            await addDoc(collection(db, 'words'), {
                 word: word,
                 meaning: meaning,
                 example: example,
                 mistakeCount: 0,
                 lastCorrectDate: null,
                 tags: tagsArray,
+                memo: memo,
+                createdAt: serverTimestamp(),
             });
 
-            console.log('Document written with ID: ', docRef.id);
             alert("単語を登録しました");
 
             // 登録後にformをclear
@@ -46,6 +54,8 @@ export default function AddWordPage() {
             setMeaning('');
             setExample('');
             setTags('');
+            setMemo('');
+            wordInputRef.current?.focus();
         } catch (error) {
             console.log('Error adding document: ', error);
             alert('登録に失敗しました');
@@ -67,6 +77,9 @@ export default function AddWordPage() {
                 buttonText="登録する"
                 tags={tags}
                 setTags={setTags}
+                memo={memo}
+                setMemo={setMemo}
+                ref={wordInputRef}
             />
         </div>
 
