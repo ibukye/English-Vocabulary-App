@@ -263,11 +263,11 @@ export default function LibraryPage() {
 
 // 編集モーダルコンポーネント
 function EditModal({ word, onClose, onSave }: { word: Word, onClose: () => void, onSave: (data: Partial<Word>) => void }) {
-    // フォームの各入力値をstateで管理
+    // フォームの各入力値をstateで管理 (命名を統一)
     const [wordState, setWordState] = useState(word.word);
     const [meaningState, setMeaningState] = useState(word.meaning);
     const [exampleState, setExampleState] = useState(word.example || '');
-    // ★ tagsは文字列として扱い、配列を .join(', ') で文字列に変換
+    // tagsは文字列として扱い、配列を .join(', ') で文字列に変換
     const [tagsState, setTagsState] = useState((word.tags || []).join(', '));
     const [memoState, setMemoState] = useState(word.memo || '');
 
@@ -288,47 +288,35 @@ function EditModal({ word, onClose, onSave }: { word: Word, onClose: () => void,
         });
     };
 
-
     return (
         // 背景を暗くするオーバーレイ
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
-                <h2 className="text-2xl font-bold mb-4">単語を編集</h2>
+                <h2 className="text-2xl font-bold mb-6">単語を編集</h2>
                 
-                <form 
-                    onSubmit={handleSave}
-                    className='max-w-md mx-auto bg-white rounded-2xl shadow-lg p-8 space-y-6 transition-all duration-300'
-                >
-                    <h2 className='text-2xl font-semibold text-gray-800 text-center'>
-                        単語を登録
-                    </h2>
-                    
-                    <div>
-                        <label className='block text-sm font-medium text-gray-600 mb-1'>単語:</label>
-                        <input type="text" value={wordState} onChange={(e) => setWordState(e.target.value)} required className="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all text-black"/>
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-600 mb-1">意味:</label>
-                        <input type="text" value={meaningState} onChange={(e) => setMeaningState(e.target.value)} required className="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-green-400 transition-all text-black"/>
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-600 mb-1">例文:</label>
-                        <input type="text" value={exampleState} onChange={(e) => setExampleState(e.target.value)} className="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all text-black"/>
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-600 mb-1">タグ (カンマ区切り):</label>
-                        <input type="text" value={tagsState} onChange={(e) => setTagsState(e.target.value)} placeholder="例: 中学2年中間, 2025" className="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all text-black"/>
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-600 mb-1">メモ:</label>
-                        <input type="text" value={memoState} onChange={(e) => setMemoState(e.target.value)} className="w-full rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-red-400 transition-all text-black"/>
-                    </div>
-                    <button type="submit" className="w-full bg-blue-500 text-white py-3 rounded-lg font-medium hover:bg-blue-600 active:scale-[0.98] transition-all ">編集</button>
-                </form>
-                    <div className="flex justify-end gap-4 mt-6">
-                        <button type="button" onClick={onClose} className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">キャンセル</button>
-                        <button type="submit" className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">保存</button>
-                    </div>
+                {/* WordFormは<form>要素そのものなので、<form>でラップしない */}
+                <WordForm
+                    word={wordState}
+                    meaning={meaningState}
+                    example={exampleState}
+                    tags={tagsState}
+                    memo={memoState}
+                    setWord={setWordState}
+                    setMeaning={setMeaningState}
+                    setExample={setExampleState}
+                    setTags={setTagsState}
+                    setMemo={setMemoState}
+                    handleSubmit={handleSave} // ★ 保存処理を渡す
+                    buttonText="変更を保存"
+                    // refはAddWordPageでしか使わないのでここでは不要
+                />
+
+                <div className="flex justify-end gap-4 mt-4">
+                    <button type="button" onClick={onClose} className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">
+                        キャンセル
+                    </button>
+                    {/* 保存ボタンはWordForm内に統一したので不要 */}
+                </div>
             </div>
         </div>
     );

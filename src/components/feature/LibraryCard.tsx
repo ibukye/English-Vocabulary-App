@@ -5,13 +5,15 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 // Flashcardが受け取るデータの型
 type WordData = {
-    id: string;     // eidt, removeのために必要
+    id: string;     // edit,deleteのために必要
     word: string;
     meaning: string;
     example?: string;
     memo?: string;
     mistakeCount: number;
-    lastCorrectDate?: Date | null;
+    lastCorrectDate: Date | null;
+    tags?: string[];
+    createdAt: Date | null;
 };
 
 type LibraryCardProps = {
