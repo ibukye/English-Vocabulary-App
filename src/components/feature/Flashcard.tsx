@@ -3,6 +3,7 @@
 import { useState } from "react"
 //import SpeakerButton from "../ui/SpeakerButton";
 import './Flashcard.css';
+import SpeakerButton from "../ui/SpeakerButton";
 
 // 学習モードの型
 type StudyMode = 'en-jp' | 'jp-en';
@@ -49,8 +50,8 @@ export default function Flashcard({ wordData, isFlipped: controlledFlipped, onFl
                 {/* カードの表面 */}
                 <div className="flashcard-front">
                     <h2>{frontContent}</h2>
-                    {/* en-jpの時のみ音声ボタン表示 */}
-                    {/*{mode === 'en-jp' && <SpeakerButton />}*/}
+                    {/* EN→JPモードのときだけ音声ボタンを表示 */}
+                    {mode === 'en-jp' && <SpeakerButton textToSpeak={wordData.word} />}
                     {/* 例文が存在する場合のみ表示 */}
                     {mode==='en-jp' && wordData.example && <p className="example"><em>{wordData.example}</em></p>}
                 </div>

@@ -1,5 +1,5 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-
+import SpeakerButton from '../ui/SpeakerButton';
 
 
 
@@ -41,6 +41,7 @@ export default function LibraryCard({ wordData, onEdit, onDelete }: LibraryCardP
             <div className="flex-grow">
                 {/* 単語 */}
                 <h2 className="text-2xl font-bold text-indigo-600">{wordData.word}</h2>
+                <SpeakerButton textToSpeak={wordData.word} />
 
                 {/* 意味 */}
                 <h3 className="text-lg font-medium text-gray-700 mt-1">{wordData.meaning}</h3>
