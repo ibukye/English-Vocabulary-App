@@ -13,6 +13,8 @@ type WordData = {
     meaning: string;
     example?: string;   // 任意  
     memo?: string;
+    mistakeCount: number;
+    lastCorrectDate?: Date;
 }
 
 // ComponentのPropsの型

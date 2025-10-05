@@ -22,7 +22,7 @@ type Word = {
     example?: string;
     mistakeCount: number;
     lastCorrectDate: Date | null;
-}
+};
 
 function StudyPageContent() {
     const [words, setWords] = useState<Word[]>([]);     // 単語リスト全体のstates
@@ -175,31 +175,57 @@ function StudyPageContent() {
     const currentWord = words[currentIndex];
 
     return (
-        <div className="study-page">
-            <h1>学習ページ</h1>
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-100 px-4 py-8">
+        <div className="w-full max-w-3xl text-center">
+            <h1 className="text-4xl font-bold text-gray-800 mb-6">📖 学習ページ</h1>
 
-            <MenuButton href="/" label="メニュー画面に戻る"/>
-            <button onClick={() => setSelectedTag(null)}>セット選択に戻る</button>
-
-            <p>現在のモード: {mode=== 'en-jp' ? '英語 日本語' : '日本語 英語'}</p>
-           
-            <Flashcard 
-                key={currentWord.id}
-                wordData={currentWord}  
-                isFlipped={isFlipped}
-                onFlip={() => setIsFlipped(prev => !prev)} 
-                mode={mode}
-            />
-
-            {/* 正解、不正解ボタンを配置 */}
-            <div className="answer-buttons" style={{ marginTop: '20px' }}>
-                <button onClick={() => handleAnswer(false)} className="bg-blue-500 px-6 py-3 rounded-xl shadow-md hover:bg-blue-600 transision duration-300 text-center" style={{ marginRight: '10px', backgroundColor: '' }}> うーん </button>
-                <button onClick={() => handleAnswer(true)} className="bg-blue-500 px-6 py-3 rounded-xl shadow-md hover:bg-blue-600 transision duration-300 text-center" style={{ marginRight: '10px' }}> わかった </button>
-
+            <div className="flex flex-wrap justify-center gap-3 mb-6">
+            <MenuButton href="/" label="🏠 メニューに戻る" />
+            <button
+                onClick={() => setSelectedTag(null)}
+                className="px-6 py-2 rounded-xl border border-gray-300 bg-white hover:bg-gray-100 shadow-sm transition duration-200 text-black"
+            >
+                セット選択に戻る
+            </button>
             </div>
 
+            <p className="text-lg text-gray-600 mb-4">
+            現在のモード：{" "}
+            <span className="font-semibold text-blue-600">
+                {mode === "en-jp" ? "英語 → 日本語" : "日本語 → 英語"}
+            </span>
+            </p>
+
+            {/* フラッシュカード */}
+            <div className="flex justify-center mb-6">
+            <Flashcard
+                key={currentWord.id}
+                wordData={currentWord}
+                isFlipped={isFlipped}
+                onFlip={() => setIsFlipped(prev => !prev)}
+                mode={mode}
+            />
+            </div>
+
+            {/* 回答ボタン */}
+            <div className="flex justify-center gap-6 mt-4">
+            <button
+                onClick={() => handleAnswer(false)}
+                className="px-6 py-3 rounded-xl bg-red-400 text-white font-medium shadow-md hover:bg-red-500 active:scale-[0.97] transition"
+            >
+                うーん…
+            </button>
+            <button
+                onClick={() => handleAnswer(true)}
+                className="px-6 py-3 rounded-xl bg-green-500 text-white font-medium shadow-md hover:bg-green-600 active:scale-[0.97] transition"
+            >
+                わかった！
+            </button>
+            </div>
+        </div>
         </div>
     );
+
 };
 
 
