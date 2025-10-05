@@ -80,7 +80,7 @@ export default function LibraryPage() {
         // tag
         if (selectedTag) {
             tempWords = tempWords.filter(word => 
-            (word as any).tags?.includes(selectedTag)
+                word.tags?.includes(selectedTag)
             );
         }
         // search
