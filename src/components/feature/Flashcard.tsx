@@ -14,7 +14,7 @@ type WordData = {
     example?: string;   // 任意  
     memo?: string;
     mistakeCount: number;
-    lastCorrectDate?: Date;
+    lastCorrectDate?: Date | null;
 }
 
 // ComponentのPropsの型
