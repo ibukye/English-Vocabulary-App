@@ -25,8 +25,10 @@ export default function Home() {
           英単語学習帳
         </h1>
 
-        <div className="space-y-4">
-        <MenuButton href="/add-word" label="新しい単語を追加する" />
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <MenuButton href="/add-word" label="新しい単語を追加する" />
+          <MenuButton href="/word-library" label="単語帳一覧" />
+        </div>
     
         <div className="mt-8">
             <p className="text-xl font-semibold text-gray-700 mb-4">
@@ -39,7 +41,7 @@ export default function Home() {
             </div>
 
         </div>
-        </div>
+        
       </div>
     </div>
   );
