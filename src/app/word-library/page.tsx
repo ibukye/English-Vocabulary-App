@@ -63,7 +63,7 @@ export default function LibraryPage() {
             setAllWords(wordsData);
 
             // tagの取得
-            const allTags = wordsData.flatMap(word => (word as any).tags || []);
+            const allTags = wordsData.flatMap(word => word.tags || []);
             const uniqueTags = [...new Set(allTags as string[])];
             setAvailableTags(uniqueTags);
 
