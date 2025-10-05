@@ -4,7 +4,7 @@
 
 自分だけのオリジナル単語帳を作成して、効率的に英単語を学習するためのWebアプリケーションです。フラッシュカード形式での学習や、苦手な単語の管理機能などを通じて、記憶の定着をサポートします。
 
-**デモサイトURL:** `https://<あなたのアプリのURL>.vercel.app/`
+**デモサイトURL:** `https://english-vocabulary-app-alpha.vercel.app/`
 
 ---
 
@@ -46,8 +46,8 @@
 
 1.  **リポジトリをクローン**
     ```bash
-    git clone [https://github.com/](https://github.com/)<あなたのGitHubユーザー名>/<リポジトリ名>.git
-    cd <リポジトリ名>
+    git clone https://github.com/ibukye/English-Vocabulary-App.git
+    cd english-vocabulary-app
     ```
 
 2.  **依存関係をインストール**

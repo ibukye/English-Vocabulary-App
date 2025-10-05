@@ -158,7 +158,7 @@ export default function LibraryPage() {
         <div className="min-h-screen bg-gray-50 text-gray-800">
             <div className="max-w-10xl mx-auto p-6">
                 <div className="flex justify-between items-center mb-6">
-                    <Link href="/">メニュー画面に戻る</Link>
+                    <Link href="/" className="m-4 px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600">メニュー画面に戻る</Link>
                     <h1 className="text-3xl font-bold text-gray-900">📘 単語帳ライブラリ</h1>
                     <MenuButton href="/" label="メニューに戻る" />
                 </div>

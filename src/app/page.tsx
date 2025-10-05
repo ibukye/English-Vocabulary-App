@@ -4,6 +4,7 @@ import MenuButton from "@/components/ui/MenuButton";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import AuthButton from "@/components/AuthButton";
 
 export default function Home() {
   const [tags, setTags] = useState<string[]>([]);
@@ -21,6 +22,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-100 via-white to-blue-100 p-6">
       <div className="w-full max-w-2xl bg-white shadow-2xl rounded-3xl p-10 text-center border border-gray-100">
+        <AuthButton />
         <h1 className="text-4xl font-extrabold text-gray-800 mb-6">
           英単語学習帳
         </h1>
@@ -41,7 +43,7 @@ export default function Home() {
             </div>
 
         </div>
-        
+
       </div>
     </div>
   );

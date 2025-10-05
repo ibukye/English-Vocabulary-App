@@ -17,4 +17,4 @@ const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0
 // Firestoreのinstanceを取得
 const db = getFirestore(app);
 
-export { db };
+export { app, db };
