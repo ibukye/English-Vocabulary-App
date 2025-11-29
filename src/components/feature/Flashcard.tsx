@@ -23,7 +23,7 @@ type FlashcardProps = {
     wordData: WordData; 
     isFlipped?: boolean;    
     onFlip?: () => void;
-    mode?: StudyMode;
+    mode?: string;
 }
 
 export default function Flashcard({ wordData, isFlipped: controlledFlipped, onFlip, mode='en-jp' }: FlashcardProps) {
