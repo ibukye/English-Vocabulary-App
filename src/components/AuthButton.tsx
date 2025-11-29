@@ -26,7 +26,7 @@ export default function AuthButton() {
           console.log("ℹ️ リダイレクト結果なし（通常のページ読み込み）");
         }
       })
-      .catch((error: AuthError) => {  // ← any を AuthError に変更
+      .catch((error: AuthError) => {
         console.error("❌❌❌ リダイレクトエラー!!");
         console.error("エラー全体:", error);
         console.error("エラーコード:", error.code);
@@ -42,30 +42,25 @@ export default function AuthButton() {
     setImageError(false);
   }, [user]);
 
-  const handleLogin = async () => {
-    console.log("🔵 ログインボタンがクリックされました");
+  // ★ シンプルなテスト用ログイン関数
+  const handleLogin = () => {
+    console.log("🔵🔵🔵 ログインボタンがクリックされました!!!");
+    alert("ボタンがクリックされました！");
+    
     console.log("🌐 現在のホスト名:", window.location.hostname);
     
-    try {
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        console.log("💻 LocalHost環境: Popupでログイン");
-        const result = await signInWithPopup(auth, provider);
-        console.log("✅ Popupログイン成功:", result.user.email);
-      } else {
-        console.log("🌍 本番環境: Redirectでログイン");
-        await signInWithRedirect(auth, provider);
+    // リダイレクトを実行
+    console.log("🌍 本番環境: Redirectでログイン");
+    signInWithRedirect(auth, provider)
+      .then(() => {
         console.log("🔄 リダイレクト開始...");
-      }
-    } catch (error) {  // ← any を削除
-      const authError = error as AuthError;  // ← 型アサーション
-      console.error("❌ ログイン開始エラー:", authError);
-      console.error("エラーコード:", authError.code);
-      console.error("エラーメッセージ:", authError.message);
-      
-      if (authError.code !== 'auth/popup-closed-by-user' && authError.code !== 'auth/cancelled-popup-request') {
-        alert(`ログイン開始エラー: ${authError.message}`);
-      }
-    }
+      })
+      .catch((error: AuthError) => {
+        console.error("❌ ログイン開始エラー:", error);
+        console.error("エラーコード:", error.code);
+        console.error("エラーメッセージ:", error.message);
+        alert(`ログイン開始エラー: ${error.message}`);
+      });
   };
 
   const handleLogout = async () => {
@@ -117,7 +112,8 @@ export default function AuthButton() {
         </div>
       ) : (
         <button 
-          onClick={handleLogin} 
+          onClick={handleLogin}
+          type="button"
           className="bg-white text-gray-700 font-semibold py-3 px-6 rounded-full shadow-md border border-gray-200 hover:bg-gray-50 hover:shadow-lg transition-all flex items-center gap-3"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
