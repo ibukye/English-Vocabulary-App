@@ -34,9 +34,6 @@ function StudyPageContent() {
 
     // URLからquery parameterを読み取る
     const searchParams = useSearchParams();
-    // 'mode' parameterを取得、存在しない場合は'en-jp'をdefaultに
-    const initialMode = (searchParams.get('mode') as StudyMode) || 'en-jp';
-    
 
     // 取得したmodeを初期値として設定
     const [mode] = useState('en-jp');

@@ -24,8 +24,10 @@ export default function AuthButton() {
       })
       .catch((error) => {
         console.error("Redirect Login Error:", error);
-        if (error.code !== 'auth/popup-closed-by-user') {
-            alert(`ログイン失敗: ${error.message}`);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if ((error as any).code !== 'auth/popup-closed-by-user') {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            alert(`ログイン失敗: ${(error as any).message}`);
         }
       });
   }, []);
@@ -45,6 +47,7 @@ export default function AuthButton() {
         console.log("本番環境: Redirectでログイン");
         await signInWithRedirect(auth, provider);
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("ログイン開始エラー:", error);
       if (error.code !== 'auth/popup-closed-by-user' && error.code !== 'auth/cancelled-popup-request') {
@@ -58,6 +61,7 @@ export default function AuthButton() {
     try {
       await signOut(auth);
       alert("ログアウトしました");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("ログアウトエラー:", error);
       alert(`ログアウトエラー: ${error.message}`);
@@ -74,14 +78,15 @@ export default function AuthButton() {
         <div className="flex flex-col items-center gap-3">
           {/* 画像表示エリア: エラーがなく、URLがある場合のみ画像を表示 */}
           {!imageError && user.photoURL ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
             <img 
               src={user.photoURL} 
               alt="User Icon" 
               className="w-16 h-16 rounded-full border-2 border-indigo-100 shadow-sm object-cover"
               // 重要: これがないとGoogleの画像が表示されないことがあります
               referrerPolicy="no-referrer"
-              // 読み込みに失敗したらエラー状態にする
-              onError={(e) => {
+              // 読み込みに失敗したらエラー状態にする（引数の e を削除）
+              onError={() => {
                 console.error("画像読み込みエラー");
                 setImageError(true);
               }}

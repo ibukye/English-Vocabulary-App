@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, doc, updateDoc, query, orderBy, deleteDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import MenuButton from "@/components/ui/MenuButton";
-import Flashcard from "@/components/feature/Flashcard";
+//import Flashcard from "@/components/feature/Flashcard";
 import LibraryCard from "@/components/feature/LibraryCard";
 import WordForm from "@/components/WordForm";
 import Link from "next/link";
