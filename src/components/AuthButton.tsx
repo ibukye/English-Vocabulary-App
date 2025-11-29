@@ -16,18 +16,27 @@ export default function AuthButton() {
 
   // コンポーネントが表示された時に、リダイレクトから戻ってきたかチェックする
   useEffect(() => {
+    console.log("🔄 リダイレクト結果を確認中...");
+    console.log("現在のURL:", window.location.href);
+    
     getRedirectResult(auth)
       .then((result) => {
         if (result) {
-          console.log("Redirect Login Success:", result.user);
+          console.log("✅✅✅ リダイレクトログイン成功!!");
+          console.log("ユーザー情報:", result.user);
+          console.log("メールアドレス:", result.user.email);
+        } else {
+          console.log("ℹ️ リダイレクト結果なし（通常のページ読み込み）");
         }
       })
       .catch((error) => {
-        console.error("Redirect Login Error:", error);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if ((error as any).code !== 'auth/popup-closed-by-user') {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            alert(`ログイン失敗: ${(error as any).message}`);
+        console.error("❌❌❌ リダイレクトエラー!!");
+        console.error("エラー全体:", error);
+        console.error("エラーコード:", error.code);
+        console.error("エラーメッセージ:", error.message);
+        
+        if (error.code !== 'auth/popup-closed-by-user') {
+          alert(`ログイン失敗: ${error.code} - ${error.message}`);
         }
       });
   }, []);
@@ -39,17 +48,24 @@ export default function AuthButton() {
 
   // ログイン処理
   const handleLogin = async () => {
+    console.log("🔵 ログインボタンがクリックされました");
+    console.log("🌐 現在のホスト名:", window.location.hostname);
+    
     try {
       if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        console.log("LocalHost環境: Popupでログイン");
-        await signInWithPopup(auth, provider);
+        console.log("💻 LocalHost環境: Popupでログイン");
+        const result = await signInWithPopup(auth, provider);
+        console.log("✅ Popupログイン成功:", result.user.email);
       } else {
-        console.log("本番環境: Redirectでログイン");
+        console.log("🌍 本番環境: Redirectでログイン");
         await signInWithRedirect(auth, provider);
+        console.log("🔄 リダイレクト開始...");
       }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.error("ログイン開始エラー:", error);
+      console.error("❌ ログイン開始エラー:", error);
+      console.error("エラーコード:", error.code);
+      console.error("エラーメッセージ:", error.message);
+      
       if (error.code !== 'auth/popup-closed-by-user' && error.code !== 'auth/cancelled-popup-request') {
         alert(`ログイン開始エラー: ${error.message}`);
       }
