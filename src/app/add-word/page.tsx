@@ -4,11 +4,15 @@
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { useEffect, useRef, useState } from 'react';
+import { useAuth } from '@/context/AuthContext';
 import WordForm from '@/components/WordForm';
 import MenuButton from '@/components/ui/MenuButton';
 
 
 export default function AddWordPage() {
+
+    // ここでログイン情報を取得
+    const { user } = useAuth();
     
     const [word, setWord] = useState('');
     const [meaning, setMeaning] = useState('');
@@ -25,6 +29,12 @@ export default function AddWordPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();     // formのdefault送信動作を防ぐ
+
+        // 1. ログインチェック：userが空なら処理を止める
+        if (!user) {
+            alert("エラー: ログインしていません。ログインしてから登録してください。");
+            return;
+        }
 
         if (!word || !meaning) {
             alert("単語と意味は必須です");
@@ -45,6 +55,8 @@ export default function AddWordPage() {
                 tags: tagsArray,
                 memo: memo,
                 createdAt: serverTimestamp(),
+                // 誰が登録したか分かるようにIDも保存しておく（推奨）
+                userId: user.uid, 
             });
 
             alert("単語を登録しました");
@@ -66,6 +78,15 @@ export default function AddWordPage() {
         <div>
             <h1>単語登録ページ</h1>
             <MenuButton href="/" label="メニュー画面に戻る" />
+
+            {/* ログインしていない時に警告を出すUI（オプション） */}
+            {!user && (
+                <p style={{color: 'red', fontWeight: 'bold', padding: '10px'}}>
+                    ※現在ログインしていません。登録するにはログインが必要です。
+                </p>
+            )}
+
+            
             <WordForm 
                 word={word}
                 meaning={meaning}

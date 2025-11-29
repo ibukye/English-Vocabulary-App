@@ -5,19 +5,33 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import AuthButton from "@/components/AuthButton";
+import { useAuth } from "@/context/AuthContext"; // 追加: ログイン状態を知るために必要
 
 export default function Home() {
   const [tags, setTags] = useState<string[]>([]);
+  const { user } = useAuth(); // 追加: ユーザー情報を取得
 
   useEffect(() => {
+    // 修正ポイント: ユーザーがログインしていない時は読み込みを行わない
+    if (!user) {
+      setTags([]); // ログアウト時はタグを空にする
+      return;
+    }
+
     const fetchTags = async () => {
-      const querySnapshot = await getDocs(collection(db, "words"));
-      const allTags = querySnapshot.docs.flatMap(doc => doc.data().tags || []);
-      const uniqueTags = [...new Set(allTags)];
-      setTags(uniqueTags);
+      try {
+        // ここでエラーが出てもアプリが止まらないように try-catch で囲む
+        const querySnapshot = await getDocs(collection(db, "words"));
+        const allTags = querySnapshot.docs.flatMap(doc => doc.data().tags || []);
+        const uniqueTags = [...new Set(allTags)];
+        setTags(uniqueTags);
+      } catch (error) {
+        console.error("タグの取得に失敗しました:", error);
+        // ここでエラーを握りつぶすことで、画面が真っ白になるのを防ぎます
+      }
     };
     fetchTags();
-  }, []);
+  }, [user]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-100 via-white to-blue-100 p-6">
@@ -41,6 +55,13 @@ export default function Home() {
               <MenuButton href="/study?mode=en-jp" label="英語 → 日本語" />
               <MenuButton href="/study?mode=jp-en" label="日本語 → 英語" />
             </div>
+
+            {/* デバッグ用にタグを表示してみる（オプション） */}
+            {user && tags.length > 0 && (
+              <div className="mt-6 text-sm text-gray-500">
+                <p>登録済みタグ: {tags.join(', ')}</p>
+              </div>
+            )}
 
         </div>
 
