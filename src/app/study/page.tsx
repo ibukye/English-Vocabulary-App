@@ -39,7 +39,7 @@ function StudyPageContent() {
     
 
     // 取得したmodeを初期値として設定
-    const [mode, setMode] = useState(initialMode);
+    const [mode] = useState('en-jp');
 
     const [isFlipped, setIsFlipped] = useState(false);
 
