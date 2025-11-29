@@ -23,6 +23,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // onAuthStateChangedで認証状態の変更を監視する
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("🔐 認証状態変更:", user ? `ログイン中: ${user.email}` : "未ログイン");
+      console.log("👤 ユーザー情報:", user);
       setUser(user);
       setIsLoading(false);
     });
