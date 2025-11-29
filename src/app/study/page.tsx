@@ -13,7 +13,7 @@ import { db } from "@/lib/firebase";
 
 
 // 学習モードの型
-type StudyMode = 'en-jp' | 'jp-en';
+//type StudyMode = 'en-jp' | 'jp-en';
 
 type Word = {
     id: string;
@@ -33,7 +33,7 @@ function StudyPageContent() {
     const [isLoading, setIsLoading] = useState(true);
 
     // URLからquery parameterを読み取る
-    const searchParams = useSearchParams();
+    //const searchParams = useSearchParams();
 
     // 取得したmodeを初期値として設定
     const [mode] = useState('en-jp');

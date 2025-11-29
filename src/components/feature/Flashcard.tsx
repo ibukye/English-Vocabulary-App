@@ -6,7 +6,7 @@ import './Flashcard.css';
 import SpeakerButton from "../ui/SpeakerButton";
 
 // 学習モードの型
-type StudyMode = 'en-jp' | 'jp-en';
+//type StudyMode = 'en-jp' | 'jp-en';
 
 // Flashcardが受け取るデータの型
 type WordData = {
